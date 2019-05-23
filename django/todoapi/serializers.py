@@ -8,4 +8,4 @@ class TaskSerializer(serializers.ModelSerializer):
 
         model = Task
 
-        fields = ('title', 'content', 'created_on', 'due_date')
+        fields = ('id', 'title', 'content', 'created_on', 'due_date')
