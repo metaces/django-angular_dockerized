@@ -1,10 +1,27 @@
 <h2>My Tasks</h2>
 
 <ul>
-  <li *ngFor="let task of tasks$ | async"></li>
-  <ul>
-    <li>Title: {{ task.title }}</li>
-    <li>Content: {{ task.content }}</li>
-    <li>Due Date: {{ task.due_date }}</li>
-  </ul>
+  <li *ngFor="let task of tasks$ | async">
+    <ul>
+      <li>Title: {{ task.title }}</li>
+      <li>Content: {{ task.content }}</li>
+      <li>Due Date: {{ task.due_date }}</li>
+    </ul>
+  </li>
 </ul>
+
+<br>
+<br>
+<br>
+
+<h2>Create a Task</h2>
+
+<form [formGroup]="task_form" (ngSubmit)="onSubmit()" >
+  <label for="title">Title</label>
+  <input type="text" formControlName="title" required>
+  <br>
+  <label for="">Content</label>
+  <input type="text" formControlName="content" required>
+  <br>
+  <button type="submit">Add Task</button>
+</form>
