@@ -4,7 +4,7 @@ import { Observable, from } from 'rxjs'
 import { ApiService } from '../api.service'
 import { Task } from '../task'
 
-import { FormGroup, FormBuilder } from '@angular/forms'
+import { FormGroup, FormBuilder, Validators } from '@angular/forms'
 
 @Component({
   selector: 'app-task-list',
@@ -20,10 +20,14 @@ export class TaskListComponent implements OnInit {
 
   ngOnInit() {
     this.getTasks();
+
     this.task_form = this.form_builder.group({
       title: '',
       content: ''
     });
+
+    this.task_form.controls['title'].setValidators(Validators.required);
+    this.task_form.controls['content'].setValidators(Validators.required);
   }
 
   onSubmit() {
@@ -38,6 +42,16 @@ export class TaskListComponent implements OnInit {
   
   public getTasks() {
     this.tasks$ = this.apiService.getTasks();
+  }
+
+  deleteTask(task_id: number) {
+    this.apiService.deleteTask(task_id)
+      .subscribe(
+        (response) => {
+          console.log(response);
+          this.getTasks();
+        }
+      )
   }
 
 }
